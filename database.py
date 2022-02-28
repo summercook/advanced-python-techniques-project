@@ -1,4 +1,4 @@
-"""A database encapsulating collections of near-Earth objects and their close approaches.
+!!!!"""A database encapsulating collections of near-Earth objects and their close approaches.
 
 A `NEODatabase` holds an interconnected data set of NEOs and close approaches.
 It provides methods to fetch an NEO by primary designation or by name, as well
