@@ -72,37 +72,51 @@ class AttributeFilter:
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
-class DateFilter(AttributeFilter):
-    """."""
 
+class DateFilter(AttributeFilter):
+    """Get access to the date attribute.
+        :param approach:
+        """
     @classmethod
     def get(cls, approach):
-        """Get access to the date attribute.
-        :param approach:
-        :return: approach.time.date()
-        """
         return approach.time.date()
 
 
 class DistanceFilter(AttributeFilter):
+    """Get access to the distance attribute.
+        :param approach:
+        """
     @classmethod
     def get(cls, approach):
         return approach.distance
 
+
 class VelocityFilter(AttributeFilter):
+    """Get access to the velocity attribute.
+        :param approach:
+        """
     @classmethod
     def get(cls, approach):
         return approach.velocity
 
+
 class HazardousFilter(AttributeFilter):
+    """Get access to the hazardous attribute.
+        :param approach:
+        """
     @classmethod
     def get(cls, approach):
         return approach.neo.hazardous
 
+
 class DiameterFilter(AttributeFilter):
+    """Get access to the Distance attribute.
+        :param approach:
+        """
     @classmethod
     def get(cls, approach):
         return approach.neo.diameter
+
 
 def create_filters(
         date=None, start_date=None, end_date=None,
@@ -140,7 +154,7 @@ def create_filters(
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-    # TODO: Decide how you will represent your filters.
+
     filters = []
     arguments = locals()
 
@@ -175,11 +189,8 @@ def create_filters(
         elif key == 'hazardous' and value is not None:
             filters.append(HazardousFilter(operator.eq, value))
 
-
-
-
-
     return filters
+
 
 def limit(iterator, n=None):
     """Produce a limited stream of values from an iterator.
@@ -190,9 +201,8 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
 
-    if n == 0 or n == None:
+    if n == 0 or n is None:
         return iterator
     else:
         return islice(iterator, n)

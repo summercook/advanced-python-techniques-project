@@ -42,26 +42,24 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
-        #
-        # TODO: What additional auxiliary data structures will be useful?
+
+        # Creat dictionaries
         self.designation_dict = {}
+        self.names_dict = {}
+
+        # add neos and approaches to new dictionaries with designations/names as keys
         for neo in self._neos:
             self.designation_dict[neo.designation] = neo
 
-        self.names_dict = {}
         for neo in self._neos:
             if neo.name:
                 self.names_dict[neo.name] = neo
 
+        # connect Neos to approaches and approaches to NEOs
         for approach in self._approaches:
             neo = self.get_neo_by_designation(approach._designation)
             approach.neo = neo
             neo.approaches.append(approach)
-
-        self._designation_neo_dict = {}
-        # by name
-        self._name_neo_dict = {}
-
 
 
     def get_neo_by_designation(self, designation):
@@ -77,8 +75,8 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
 
+        # Fetch an NEO by its primary designation.
         if designation in self.designation_dict:
             return self.designation_dict.get(designation)
         else:
@@ -99,12 +97,12 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        #TODO: Fetch a NEO by its name.
+
+        # Fetch NEO by name
         if name in self.names_dict:
             return self.names_dict.get(name)
         else:
             return None
-
 
 
     def query(self, filters=()):
@@ -122,8 +120,8 @@ class NEODatabase:
         :return: A stream of matching `CloseApproach` objects.
         """
 
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
+        # Generate `CloseApproach` objects that match all of the filters.
         for approach in self._approaches:
             flag = True
-            if all([x(approach) for x in filters]) == True:  # filter is not passed
+            if all([x(approach) for x in filters]) == True:
                 yield approach
