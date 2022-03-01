@@ -24,7 +24,6 @@ def load_neos(neo_csv_path):
         for row in reader:
             neo = NearEarthObject(**row) #designation = row['pdes'], name = row['name'], diameter = row['diameter'], hazardous = row['pha'])
             neos.append(neo)
-    print(len(neos))
     return neos
             # TODO: Load NEO data from the given CSV file.
 
@@ -43,5 +42,4 @@ def load_approaches(cad_json_path = 'data /cad.json'):
         for row in json_data['data']:
             row = dict(zip(json_data['fields'], row))
             approaches.append(CloseApproach(**row))
-        print(len(approaches))
         return approaches
